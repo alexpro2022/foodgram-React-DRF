@@ -3,7 +3,6 @@ from django.db import models
 
 from .validators import validate_username
 
-
 PASSWORD_MAX_LENGTH = 150
 
 
