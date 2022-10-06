@@ -1,6 +1,9 @@
 from csv import DictReader
 
 
+DATA_PATH = 'data/'
+
+
 def info(func):
     def wrapper(self, *args, **options):
         if self.CLS.objects.exists():
@@ -17,7 +20,7 @@ def info(func):
 def load(klass, file_name):
     fields = klass._meta.get_fields(include_parents=False)
     for row in DictReader(
-        open(f'static/data/{file_name}', encoding='utf-8')
+        open(f'{DATA_PATH}{file_name}', encoding='utf-8')
     ):
         d = {}
         for field in fields:

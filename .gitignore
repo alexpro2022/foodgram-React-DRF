@@ -136,3 +136,4 @@ dmypy.json
 # .idea
 .idea
 
+foodgram_api.http

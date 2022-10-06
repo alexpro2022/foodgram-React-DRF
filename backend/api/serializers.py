@@ -1,7 +1,4 @@
-from django.core.exceptions import ObjectDoesNotExist
-
 from djoser.serializers import UserSerializer
-
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
 
@@ -12,10 +9,7 @@ from recipes.models import (
     Tag)
 from users.models import User
 from .fields import Base64ImageField
-from .utils import (
-    fail,
-    get_request,
-    get_request_user)
+from .utils import fail
 
 
 class DynamicFieldsModelSerializer(serializers.ModelSerializer):
@@ -37,7 +31,7 @@ class UserGetSerializer(UserSerializer):
     is_subscribed = serializers.SerializerMethodField()
 
     def get_is_subscribed(self, obj):
-        user = get_request_user(self)
+        user = self.context.get('request').user
         return (
             user.is_authenticated
             and user.followers.filter(author_subscription=obj).exists())
@@ -54,17 +48,17 @@ class UserSubscribeSerializer(UserGetSerializer):
     recipes_count = serializers.SerializerMethodField()
 
     def get_recipes(self, author):
+        recipes = author.recipes.all()
+        limit = self.context.get('request').query_params.get('recipes_limit')
         try:
-            limit = int(get_request(self).query_params.get('recipes_limit'))
+            recipes = recipes[:int(limit)]
         except (TypeError, ValueError):
-            recipes = author._recipes.all()
-        else:
-            recipes = author._recipes.all()[:limit]
+            pass
         fields = ('id', 'name', 'image', 'cooking_time')
         return RecipeSerializer(recipes, many=True, fields=fields).data
 
     def get_recipes_count(self, author):
-        return author._recipes.count()
+        return author.recipes.count()
 
     class Meta:
         model = User
@@ -102,14 +96,8 @@ class CustomTagsField(serializers.Field):
 
     def to_internal_value(self, data):
         for item in data:
-            try:
-                if isinstance(item, bool):
-                    raise TypeError
-                Tag.objects.get(pk=item)
-            except ObjectDoesNotExist:
+            if not Tag.objects.filter(pk=item).exists():
                 fail(f'Тега с id={item} не существует')
-            except (TypeError, ValueError):
-                fail(f'Некорректный тип id: {type(item).__name__}')
         return data
 
 
@@ -133,31 +121,38 @@ class RecipeSerializer(DynamicFieldsModelSerializer):
                 fields=['author', 'name'])]
 
     def get_is_favorited(self, obj):
-        user = get_request_user(self)
+        user = self.context.get('request').user
         return (
             user.is_authenticated
             and user.favorites.filter(recipe=obj).exists())
 
     def get_is_in_shopping_cart(self, obj):
-        user = get_request_user(self)
+        user = self.context.get('request').user
         return (
             user.is_authenticated
             and user.shopping_cart.filter(recipe=obj).exists())
 
     def _create_or_update(self, validated_data, instance):
         if instance is None:
-            return Recipe.objects.create(**validated_data)
-        return super().update(instance, validated_data)
+            return (Recipe.objects.create(**validated_data), True)
+        for key, value in validated_data.items():
+            setattr(instance, key, value)
+        instance.save()
+        return (instance, False)
 
     def _perform(self, validated_data, inst=None):
         ingredients = validated_data.pop('recipeingredient_set')
         tags = validated_data.pop('tags')
-        instance = self._create_or_update(validated_data, inst)
+        instance, created = self._create_or_update(validated_data, inst)
         instance.tags.set(tags)
-        instance.ingredients.clear()
+        if not created:
+            instance.ingredients.clear()
         for ingredient in ingredients:
+            id = ingredient['ingredient']['id']
+            if not Ingredient.objects.filter(pk=id).exists():
+                fail(f'Ингредиента с id={id} не существует')
             instance.ingredients.add(
-                ingredient['ingredient']['id'],
+                id,
                 through_defaults={'amount': ingredient['amount']})
         return instance
 

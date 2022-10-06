@@ -1,3 +1,5 @@
+import os
+
 from django.core.management import BaseCommand
 
 from users.models import User
@@ -13,5 +15,5 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         load(self.CLS, self.FILE_NAME)
         for user in self.CLS.objects.all():
-            user.set_password('111')
+            user.set_password(os.getenv('TEST_USERS_PASSWORD'))
             user.save()

@@ -2,9 +2,8 @@ version: '3.3'
 services:
 
   frontend:
-    build:
-      context: ../frontend
-      dockerfile: Dockerfile
+    # build: ../frontend
+    image: alexpro1972/foodgram_frontend
     volumes:
       - ../frontend/:/app/result_build/
 
@@ -18,7 +17,8 @@ services:
       - ./.env
   
   web:
-    build: ../backend
+    # build: ../backend
+    image: alexpro1972/foodgram_backend
     restart: always
     volumes:
       - static_value:/app/static/

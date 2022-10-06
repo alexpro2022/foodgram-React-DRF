@@ -3,7 +3,7 @@ from csv import DictReader
 from django.core.management import BaseCommand
 
 from recipes.models import Ingredient, Recipe, RecipeIngredient
-from ._utils import info
+from ._utils import DATA_PATH, info
 
 
 class Command(BaseCommand):
@@ -14,7 +14,7 @@ class Command(BaseCommand):
     @info
     def handle(self, *args, **options):
         for row in DictReader(
-            open(f'static/data/{self.FILE_NAME}s.csv', encoding='utf-8')
+            open(f'{DATA_PATH}{self.FILE_NAME}s.csv', encoding='utf-8')
         ):
             instance = self.CLS(
                 recipe=Recipe.objects.get(pk=row['recipe_id']),
