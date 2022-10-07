@@ -2,7 +2,6 @@ version: '3.3'
 services:
 
   frontend:
-    # build: ../frontend
     image: alexpro1972/foodgram_frontend
     volumes:
       - ../frontend/:/app/result_build/
@@ -17,7 +16,6 @@ services:
       - ./.env
   
   web:
-    # build: ../backend
     image: alexpro1972/foodgram_backend
     restart: always
     volumes:
