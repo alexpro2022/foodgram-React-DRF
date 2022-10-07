@@ -2,12 +2,9 @@ from djoser.serializers import UserSerializer
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
 
-from recipes.models import (
-    Ingredient,
-    Recipe,
-    RecipeIngredient,
-    Tag)
+from recipes.models import Ingredient, Recipe, RecipeIngredient, Tag
 from users.models import User
+
 from .fields import Base64ImageField
 from .utils import fail
 

@@ -4,6 +4,7 @@ from django.core.management import BaseCommand
 
 from recipes.models import Recipe
 from users.models import User
+
 from ._utils import DATA_PATH, info
 
 

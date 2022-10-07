@@ -1,8 +1,9 @@
-from django.db import models
 from django.core.validators import MinValueValidator
+from django.db import models
+
+from users.models import User
 
 from .validators import validate_color, validate_slug
-from users.models import User
 
 
 class Tag(models.Model):

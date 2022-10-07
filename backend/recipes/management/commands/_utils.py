@@ -1,6 +1,5 @@
 from csv import DictReader
 
-
 DATA_PATH = 'data/'
 
 
