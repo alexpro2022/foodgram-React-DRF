@@ -69,11 +69,13 @@
 admin/ login:adm@adm.ru, password: 111
 
 Logins of installed test users with common password 111:
+```
 -bingobongo@yamdb.fake
 -capt_obvious@yamdb.fake
 -faust@yamdb.fake
 -reviewer@yamdb.fake
 -angry@yamdb.fake
+```
 
 
 ## Автор:
