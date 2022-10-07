@@ -6,4 +6,6 @@ COPY . .
 
 RUN pip3 install -r requirements.txt --no-cache-dir
 
+RUN chmod +x /start.sh
+
 CMD [" sudo ./start.sh"]
