@@ -108,7 +108,7 @@ class RecipeIngredient(models.Model):
 
     class Meta:
         verbose_name = 'Ингредиенты для рецептов'
-        verbose_name_lural = 'Ингредиенты для рецептов'
+        verbose_name_plural = 'Ингредиенты для рецептов'
         constraints = [
             models.UniqueConstraint(
                 fields=['recipe', 'ingredient', 'amount'],
