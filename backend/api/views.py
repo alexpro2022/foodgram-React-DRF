@@ -16,7 +16,7 @@ from users.models import Subscribe, User
 
 from .filters import RecipesFilter
 from .pagination import CustomPageLimitPaginator
-from .permissions import IsAuthorOrAdminOrReadOnly
+from .permissions import IsAuthorOrReadOnly
 from .serializers import (IngredientSerializer, RecipeSerializer,
                           TagSerializer, UserSubscribeSerializer)
 from .utils import delete_object_or_400, fail
@@ -90,7 +90,7 @@ class RecipeViewSet(ModelViewSet):
     filterset_class = RecipesFilter
     pagination_class = CustomPageLimitPaginator
     permission_classes = (
-        IsAuthenticatedOrReadOnly, IsAuthorOrAdminOrReadOnly)
+        IsAuthenticatedOrReadOnly, IsAuthorOrReadOnly)
 
     def _param(self, param_name):
         try:

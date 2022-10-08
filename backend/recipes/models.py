@@ -107,6 +107,8 @@ class RecipeIngredient(models.Model):
         validators=[MinValueValidator(1, 'Минимальное значение: 1')])
 
     class Meta:
+        verbose_name = 'Ингредиенты для рецептов'
+        verbose_name_lural = 'Ингредиенты для рецептов'
         constraints = [
             models.UniqueConstraint(
                 fields=['recipe', 'ingredient', 'amount'],
