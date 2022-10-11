@@ -1,6 +1,5 @@
-![](https://github.com/alexpro2022/foodgram-project-react/actions/workflows/foodgram_workflow.yml/badge.svg)
-
 # FOODGRAM project
+![](https://github.com/alexpro2022/foodgram-project-react/actions/workflows/foodgram_workflow.yml/badge.svg)
 
 
 ## Стек: 
