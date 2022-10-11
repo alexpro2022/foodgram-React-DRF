@@ -108,6 +108,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',),
     'DEFAULT_PERMISSION_CLASSES': [],
+    'SEARCH_PARAM': 'name',
     # 'DEFAULT_PAGINATION_CLASS': 'api.pagination.CustomPageLimitPaginator',
     # 'PAGE_SIZE': 6,
 }
@@ -125,5 +126,3 @@ DJOSER = {
 }
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
-
-SEARCH_PARAM = 'name'
