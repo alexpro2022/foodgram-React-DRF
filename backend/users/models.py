@@ -44,10 +44,10 @@ class Subscribe(models.Model):
         verbose_name = 'Подписка'
         verbose_name_plural = 'Подписки'
         constraints = [
-            models.UniqueConstraint(  # DONE by get_or_create
+            models.UniqueConstraint(
                 fields=['subscribed_user', 'author_subscription'],
                 name='unique_follow'),
-            models.CheckConstraint(  # DONE by request.user != author
+            models.CheckConstraint(
                 check=~models.Q(
                     subscribed_user=models.F('author_subscription')),
                 name='no_self_follow'),

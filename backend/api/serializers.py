@@ -140,18 +140,18 @@ class RecipeSerializer(DynamicFieldsModelSerializer):
     def _perform(self, validated_data, inst=None):
         ingredients = validated_data.pop('recipeingredient_set')
         tags = validated_data.pop('tags')
-        instance, created = self._create_or_update(validated_data, inst)
-        instance.tags.set(tags)
+        recipe, created = self._create_or_update(validated_data, inst)
+        recipe.tags.set(tags)
         if not created:
-            instance.ingredients.clear()
+            recipe.ingredients.clear()
         for ingredient in ingredients:
             id = ingredient['ingredient']['id']
             if not Ingredient.objects.filter(pk=id).exists():
                 fail(f'Ингредиента с id={id} не существует')
-            instance.ingredients.add(
+            recipe.ingredients.add(
                 id,
                 through_defaults={'amount': ingredient['amount']})
-        return instance
+        return recipe
 
     def create(self, validated_data):
         return self._perform(validated_data)

@@ -4,8 +4,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = os.getenv('SECRET_KEY')
 
-# SECRET_KEY = 'y18-8n(35fe12yva)d$y$&=ti#tr8^2&_54zci=u6u(43flsrn'
-
 DEBUG = False
 
 ALLOWED_HOSTS = ['*']
@@ -127,3 +125,5 @@ DJOSER = {
 }
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+SEARCH_PARAM = 'name'
