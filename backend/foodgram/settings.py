@@ -7,7 +7,6 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = False
 
 ALLOWED_HOSTS = ['*']
-# ALLOWED_HOSTS = ['84.252.138.7', '127.0.0.1', 'localhost']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -109,8 +108,6 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',),
     'DEFAULT_PERMISSION_CLASSES': [],
     'SEARCH_PARAM': 'name',
-    # 'DEFAULT_PAGINATION_CLASS': 'api.pagination.CustomPageLimitPaginator',
-    # 'PAGE_SIZE': 6,
 }
 
 DJOSER = {

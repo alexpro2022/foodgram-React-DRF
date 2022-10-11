@@ -4,7 +4,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from djoser.views import UserViewSet as DjoserViewSet
 from rest_framework import status
 from rest_framework.decorators import action
-from rest_framework.filters import OrderingFilter, SearchFilter
+from rest_framework.filters import SearchFilter
 from rest_framework.permissions import (IsAuthenticated,
                                         IsAuthenticatedOrReadOnly)
 from rest_framework.response import Response
@@ -70,18 +70,13 @@ class UserViewSet(DjoserViewSet):
 class IngredientViewSet(ReadOnlyModelViewSet):
     queryset = Ingredient.objects.all()
     serializer_class = IngredientSerializer
-    filter_backends = (OrderingFilter, SearchFilter)
-    ordering_fields = ('id',)
-    ordering = ('id',)
+    filter_backends = (SearchFilter, )
     search_fields = ('^name',)
 
 
 class TagViewSet(ReadOnlyModelViewSet):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
-    filter_backends = (OrderingFilter,)
-    ordering_fields = ('id',)
-    ordering = ('id',)
 
 
 class RecipeViewSet(ModelViewSet):
