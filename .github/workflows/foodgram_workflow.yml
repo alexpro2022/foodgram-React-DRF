@@ -11,7 +11,7 @@ jobs:
         image: postgres:10
         env:
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_PASSWORD: 12345
         ports:
           - 5432:5432
     steps:
@@ -30,7 +30,7 @@ jobs:
         DB: postgres
         DB_HOST: 127.0.0.1
         DB_PORT: 5432
-        DB_PASSWORD: postgres      
+        DB_PASSWORD: 12345      
       run: |
         python -m flake8
         cd backend/
