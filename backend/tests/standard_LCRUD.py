@@ -7,6 +7,9 @@ FORMAT = 'json'
 def _response(self, response, status_code, response_sample=None):
     self.assertEqual(response.status_code, status_code)
     if response_sample is not None:
+        print(response.data)
+        print('===================')
+        print(response_sample)
         self.assertEqual(response.data, response_sample)
     return response
 

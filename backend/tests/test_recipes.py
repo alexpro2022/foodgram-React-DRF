@@ -195,9 +195,10 @@ class RecipesAPITest(AbstractAPITest):
         )
         for client, payload, status_code, sample in CASES:
             with self.subTest(status_code=status_code):
-                print(POST_query(self, client, self.get_url(), payload, status_code, sample).data)
-                print('==================')
-                print(response_sample)
+                POST_query(self, client, self.get_url(), payload, status_code, sample
+                # print(POST_query(self, client, self.get_url(), payload, status_code, sample).data)
+                # print('==================')
+                # print(response_sample)
 
     def test_partial_update_action(self):
         payload = {
