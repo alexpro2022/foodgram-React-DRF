@@ -189,7 +189,7 @@ class RecipesAPITest(AbstractAPITest):
         invalid_payload = {}
         CASES = (
             (self.client, create_payload, status.HTTP_401_UNAUTHORIZED, None),
-            # (self.authenticated, create_payload, status.HTTP_201_CREATED, response_sample),
+            (self.authenticated, create_payload, status.HTTP_201_CREATED, response_sample),
             (self.authenticated, create_payload, status.HTTP_400_BAD_REQUEST, None),
             (self.authenticated, invalid_payload, status.HTTP_400_BAD_REQUEST, None),
         )

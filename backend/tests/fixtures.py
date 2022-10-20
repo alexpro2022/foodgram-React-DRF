@@ -40,6 +40,7 @@ TEMP_MEDIA_ROOT = tempfile.mkdtemp(dir=settings.BASE_DIR)
 @override_settings(MEDIA_ROOT=TEMP_MEDIA_ROOT)
 class AbstractAPITest(APITestCase):
     """Абстрактный класс для тестирования API."""
+    reset_sequences = True
 
     @classmethod
     def setUpClass(cls):
