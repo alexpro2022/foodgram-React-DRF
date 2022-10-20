@@ -195,7 +195,7 @@ class RecipesAPITest(AbstractAPITest):
         )
         for client, payload, status_code, sample in CASES:
             with self.subTest(status_code=status_code):
-                POST_query(self, client, self.get_url(), payload, status_code, sample
+                POST_query(self, client, self.get_url(), payload, status_code, sample)
                 # print(POST_query(self, client, self.get_url(), payload, status_code, sample).data)
                 # print('==================')
                 # print(response_sample)
