@@ -2,9 +2,9 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = os.getenv('SECRET_KEY', 'y18-8n(35fe12yva)d$y$&=ti#tr8^2&_54zci=u6u(43flsrn')
 
-DEBUG = False
+DEBUG = True  # False
 
 ALLOWED_HOSTS = ['*']
 
@@ -113,7 +113,7 @@ REST_FRAMEWORK = {
 DJOSER = {
     'PERMISSIONS': {
         'user_list': ['rest_framework.permissions.AllowAny'],
-        'user': ['rest_framework.permissions.AllowAny'],
+        'user': ['rest_framework.permissions.IsAuthenticated'],
     },
     'SERIALIZERS': {
         'current_user': 'api.serializers.UserGetSerializer',

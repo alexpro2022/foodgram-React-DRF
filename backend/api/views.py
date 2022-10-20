@@ -23,9 +23,10 @@ from .utils import delete_object_or_400, fail
 
 
 class UserViewSet(DjoserViewSet):
+    http_method_names = ('get', 'post', 'delete', 'head', 'options')
     pagination_class = CustomPageLimitPaginator
 
-    @action(('POST', 'DELETE'), detail=True)
+    @action(('POST', 'DELETE'), detail=True, permission_classes=[IsAuthenticated])
     def subscribe(self, request, id=None):
         author = get_object_or_404(User, pk=id)
         user = request.user
@@ -50,7 +51,7 @@ class UserViewSet(DjoserViewSet):
             ).data,
             status=status.HTTP_201_CREATED)
 
-    @action(detail=False)
+    @action(detail=False, permission_classes=[IsAuthenticated])
     def subscriptions(self, request):
         user = request.user
         authors = User.objects.filter(authors__subscribed_user=user)
@@ -80,6 +81,7 @@ class TagViewSet(ReadOnlyModelViewSet):
 
 
 class RecipeViewSet(ModelViewSet):
+    http_method_names = ('get', 'post', 'patch', 'delete', 'head', 'options')
     serializer_class = RecipeSerializer
     filter_backends = (DjangoFilterBackend, )
     filterset_class = RecipesFilter
