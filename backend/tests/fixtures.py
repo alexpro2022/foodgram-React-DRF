@@ -17,13 +17,23 @@ def print_(msg):
         print(msg)
 
 
-USER = User.objects.create_user(
-    email='user@user.ru',
-    username='test-user',
-    first_name='User',
-    last_name='User',
-    password='User',
-)
+def get_user():
+    try:
+        return User.objects.create_user(
+            email='user@user.ru',
+            username='test-user',
+            first_name='User',
+            last_name='User',
+            password='User',
+        )
+    except Exception:
+        return User.objects.get(
+            email='user@user.ru',
+            username='test-user',
+        )
+
+
+USER = get_user()
 USER_RESPONSE_SAMPLE = {
     "email": USER.email,
     "id": USER.id,
@@ -33,13 +43,24 @@ USER_RESPONSE_SAMPLE = {
     "is_subscribed": False
 }
 
-AUTHOR = User.objects.create_user(
-    email='author@author.ru',
-    username='test-author',
-    first_name='Author',
-    last_name='Author',
-    password='Author',
-)
+
+def get_author():
+    try:
+        return User.objects.create_user(
+            email='author@author.ru',
+            username='test-author',
+            first_name='Author',
+            last_name='Author',
+            password='Author',
+        )
+    except Exception:
+        return User.objects.get(
+            email='author@author.ru',
+            username='test-author',
+        )
+
+
+AUTHOR = get_author()
 AUTHOR_RESPONSE_SAMPLE = {
     "email": AUTHOR.email,
     "id": AUTHOR.id,
