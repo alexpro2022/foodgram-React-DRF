@@ -189,13 +189,15 @@ class RecipesAPITest(AbstractAPITest):
         invalid_payload = {}
         CASES = (
             (self.client, create_payload, status.HTTP_401_UNAUTHORIZED, None),
-            (self.authenticated, create_payload, status.HTTP_201_CREATED, response_sample),
+            # (self.authenticated, create_payload, status.HTTP_201_CREATED, response_sample),
             (self.authenticated, create_payload, status.HTTP_400_BAD_REQUEST, None),
             (self.authenticated, invalid_payload, status.HTTP_400_BAD_REQUEST, None),
         )
         for client, payload, status_code, sample in CASES:
             with self.subTest(status_code=status_code):
-                POST_query(self, client, self.get_url(), payload, status_code, sample)
+                print(POST_query(self, client, self.get_url(), payload, status_code, sample).data)
+                print('==================')
+                print(response_sample)
 
     def test_partial_update_action(self):
         payload = {
