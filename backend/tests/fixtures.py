@@ -17,20 +17,35 @@ def print_(msg):
         print(msg)
 
 
+USER = User.objects.create_user(
+    email='user@user.ru',
+    username='test-user',
+    first_name='User',
+    last_name='User',
+    password='User',
+)
 USER_RESPONSE_SAMPLE = {
-    "email": "user@user.ru",
-    "id": 1,
-    "username": "test-user",
-    "first_name": "User",
-    "last_name": "User",
+    "email": USER.email,
+    "id": USER.id,
+    "username": USER.username,
+    "first_name": USER.first_name,
+    "last_name": USER.last_name,
     "is_subscribed": False
 }
+
+AUTHOR = User.objects.create_user(
+    email='author@author.ru',
+    username='test-author',
+    first_name='Author',
+    last_name='Author',
+    password='Author',
+)
 AUTHOR_RESPONSE_SAMPLE = {
-    "email": "author@author.ru",
-    "id": 2,
-    "username": "test-author",
-    "first_name": "Author",
-    "last_name": "Author",
+    "email": AUTHOR.email,
+    "id": AUTHOR.id,
+    "username": AUTHOR.username,
+    "first_name": AUTHOR.first_name,
+    "last_name": AUTHOR.last_name,
     "is_subscribed": False
 }
 
@@ -46,23 +61,11 @@ class AbstractAPITest(APITestCase):
         super().setUpClass()
 
         # clients for testing access rights to object(s)
-        cls.user = User.objects.create_user(
-            email='user@user.ru',
-            username='test-user',
-            first_name='User',
-            last_name='User',
-            password='User',
-        )
+        cls.user = USER
         cls.authenticated = APIClient()
         cls.authenticated.force_authenticate(cls.user)
 
-        cls.author = User.objects.create_user(
-            email='author@author.ru',
-            username='test-author',
-            first_name='Author',
-            last_name='Author',
-            password='Author',
-        )
+        cls.author = AUTHOR
         cls.auth_author = APIClient()
         cls.auth_author.force_authenticate(cls.author)
 
@@ -110,3 +113,12 @@ def confirm_405(self, url, allowed=None, not_allowed=None):
             )
         print_(f'{method} not allowed')
     print_(f'===confirm_405 for {url}: {allowed} - OK===')
+
+
+'''
+      env:
+        DB: postgres
+        DB_HOST: 127.0.0.1
+        DB_PORT: 5432
+        DB_PASSWORD: 12345
+'''

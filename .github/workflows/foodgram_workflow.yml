@@ -8,10 +8,11 @@ jobs:
     runs-on: ubuntu-latest
     services:
       postgres:
-        image: postgres:10
+        image: postgres:latest
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: 12345
+          POSTGRES_DB: github_actions
         ports:
           - 5432:5432
     steps:
@@ -26,11 +27,6 @@ jobs:
         pip install flake8 pep8-naming flake8-broken-line flake8-return
         pip install -r backend/requirements.txt 
     - name: Test with flake8 and tests
-      env:
-        DB: postgres
-        DB_HOST: 127.0.0.1
-        DB_PORT: 5432
-        DB_PASSWORD: 12345      
       run: |
         python -m flake8
         cd backend/
