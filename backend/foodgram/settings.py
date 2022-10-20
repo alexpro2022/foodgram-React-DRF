@@ -108,6 +108,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',),
     'DEFAULT_PERMISSION_CLASSES': [],
     'SEARCH_PARAM': 'name',
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
 }
 
 DJOSER = {

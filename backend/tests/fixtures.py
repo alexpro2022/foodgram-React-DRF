@@ -4,7 +4,7 @@ import tempfile
 from django.conf import settings
 from django.test import override_settings
 from rest_framework import status
-from rest_framework.test import APIClient, APITestCase
+from rest_framework.test import APIClient, APITransactionTestCase
 
 from users.models import User
 
@@ -38,7 +38,7 @@ TEMP_MEDIA_ROOT = tempfile.mkdtemp(dir=settings.BASE_DIR)
 
 
 @override_settings(MEDIA_ROOT=TEMP_MEDIA_ROOT)
-class AbstractAPITest(APITestCase):
+class AbstractAPITest(APITransactionTestCase):
     """Абстрактный класс для тестирования API."""
     reset_sequences = True
 
