@@ -4,7 +4,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = os.getenv('SECRET_KEY', 'y18-8n(35fe12yva)d$y$&=ti#tr8^2&_54zci=u6u(43flsrn')
 
-DEBUG = True  # False
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -65,7 +65,7 @@ DATABASES = {
         'NAME': os.getenv('DB_NAME', 'postgres'),
         'USER': os.getenv('POSTGRES_USER', 'postgres'),
         'PASSWORD': os.getenv('POSTGRES_PASSWORD', 12345),
-        'HOST': os.getenv('DB_HOST', 'db'),
+        'HOST': os.getenv('DB_HOST', 'localhost'),
         'PORT': os.getenv('DB_PORT', 5432)
     }
 }
