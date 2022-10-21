@@ -33,7 +33,7 @@ jobs:
         DB_PORT: 5432
         DB_PASSWORD: 12345
       run: |
-        # python -m flake8
+        python -m flake8
         cd backend/
         python manage.py makemigrations
         python manage.py migrate
