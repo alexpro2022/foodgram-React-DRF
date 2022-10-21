@@ -1,6 +1,6 @@
 from rest_framework import status
 
-from fixtures import print_
+from .fixtures import print_
 
 
 FORMAT = 'json'
