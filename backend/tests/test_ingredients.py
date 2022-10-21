@@ -16,12 +16,19 @@ def create_ingredient(name='Капуста'):
     return ingredient
 
 
-def get_ingredient():
+def get_ingredient(amount=None):
     obj = Ingredient.objects.last()
+    if amount is None:
+        return {
+            "id": obj.pk,
+            "name": obj.name,
+            "measurement_unit": obj.measurement_unit
+        }
     return {
         "id": obj.pk,
         "name": obj.name,
-        "measurement_unit": obj.measurement_unit
+        "measurement_unit": obj.measurement_unit,
+        "amount": amount
     }
 
 

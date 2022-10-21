@@ -68,7 +68,6 @@ def get_response_sample(author):
     }
 
 
-# @override_settings(MEDIA_ROOT=TEMP_MEDIA_ROOT)
 class RecipesAPITest(AbstractAPITest):
     """Тестируем API рецептов."""
     @classmethod
@@ -157,11 +156,11 @@ class RecipesAPITest(AbstractAPITest):
         create_payload = {
             'ingredients': [
                 {
-                    'id': 1,
+                    'id': get_ingredient()['id'],
                     'amount': 111
                 }
             ],
-            'tags': [1],
+            'tags': [get_tag()['id']],
             'image': IMAGE,
             'name': 'CREATE',
             'text': 'CREATE',
@@ -204,11 +203,11 @@ class RecipesAPITest(AbstractAPITest):
         payload = {
             "ingredients": [
                 {
-                    "id": 1,
+                    "id": get_ingredient()['id'],
                     "amount": 1000
                 }
             ],
-            "tags": [1],
+            "tags": [get_tag()['id']],
             # "name": "PATCH",
             "text": "PATCH",
             "cooking_time": 1
