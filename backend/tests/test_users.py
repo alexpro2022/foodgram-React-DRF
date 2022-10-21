@@ -1,10 +1,11 @@
 from rest_framework import status
 
 from .fixtures import (
-    AUTHOR_RESPONSE_SAMPLE,
-    USER_RESPONSE_SAMPLE,
+    USER,
     AbstractAPITest,
     confirm_405,
+    get_next_pk,
+    get_user,
     print_,
 )
 from .standard_LCRUD import (
@@ -12,7 +13,7 @@ from .standard_LCRUD import (
     POST_query,
     DELETE_query,
 )
-from .test_recipes import get_recipe, RECIPE
+from .test_recipes import create_recipe, get_recipe
 
 
 class UsersAPITest(AbstractAPITest):
@@ -33,21 +34,21 @@ class UsersAPITest(AbstractAPITest):
             "count": 2,
             "next": None,
             "previous": None,
-            "results": [USER_RESPONSE_SAMPLE, AUTHOR_RESPONSE_SAMPLE]
+            "results": [get_user(self.user), get_user(self.author)]
         }
         URL_page1 = f'{URL}?page=1&limit=1'
         response_sample1 = {
             "count": 2,
             "next": "http://testserver/api/users/?limit=1&page=2",
             "previous": None,
-            "results": [USER_RESPONSE_SAMPLE]
+            "results": [get_user(self.user)]
         }
         URL_page2 = f'{URL}?page=2&limit=1'
         response_sample2 = {
             "count": 2,
             "next": None,
             "previous": "http://testserver/api/users/?limit=1",
-            "results": [AUTHOR_RESPONSE_SAMPLE]
+            "results": [get_user(self.author)]
         }
         URL_page3 = f'{URL}?page=3&limit=1'
         CASES = (
@@ -63,7 +64,7 @@ class UsersAPITest(AbstractAPITest):
     def test_retrieve_action(self):
         CASES = (
             (self.client, self.get_url(True), status.HTTP_401_UNAUTHORIZED, None),
-            (self.authenticated, self.get_url(True), status.HTTP_200_OK, USER_RESPONSE_SAMPLE),
+            (self.authenticated, self.get_url(True), status.HTTP_200_OK, get_user(self.user)),
             (self.authenticated, self.get_url(not_found=True), status.HTTP_404_NOT_FOUND, None)
         )
         for client, url, status_code, sample in CASES:
@@ -79,7 +80,7 @@ class UsersAPITest(AbstractAPITest):
             'password': 'X123C234V345@_',
         }
         response_sample = {
-            "id": 3,
+            "id": get_next_pk(),
             "email": "create@create.com",
             "username": "create_username",
             "first_name": "first_name_CREATE",
@@ -108,8 +109,8 @@ class UsersAPITest(AbstractAPITest):
         confirm_405(self, URL, ['GET', 'DELETE'])  # DELETE -400
         CASES = (
             (self.client, status.HTTP_401_UNAUTHORIZED, None),
-            (self.authenticated, status.HTTP_200_OK, USER_RESPONSE_SAMPLE),
-            (self.auth_author, status.HTTP_200_OK, AUTHOR_RESPONSE_SAMPLE),
+            (self.authenticated, status.HTTP_200_OK, get_user(self.user)),
+            (self.auth_author, status.HTTP_200_OK, get_user(self.author)),
         )
         for client, status_code, sample in CASES:
             with self.subTest(client=client):
@@ -120,7 +121,7 @@ class UsersAPITest(AbstractAPITest):
         URL = f'{self.get_url()}set_password/'
         new_password = 'X123C234V345@_'
         payload = {
-            "current_password": "User",
+            "current_password": USER['password'],
             "new_password": new_password,
         }
         CASES = (
@@ -136,8 +137,8 @@ class UsersAPITest(AbstractAPITest):
     def test_LOGIN_action(self):
         URL = '/api/auth/token/login/'
         payload = {
-            'email': self.user.email,
-            'password': 'User',
+            'email': USER['email'],
+            'password': USER['password'],
         }
         response = self.client.post(URL, payload)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -157,15 +158,14 @@ class UsersAPITest(AbstractAPITest):
         print_('===LOGOUT - OK===')
 
     def _get_subscribe_response_sample(self):
-        response_sample = AUTHOR_RESPONSE_SAMPLE.copy()
-        response_sample['is_subscribed'] = True
-        response_sample.update({"recipes": [RECIPE], "recipes_count": 1})
+        response_sample = get_user(self.author, is_subscribed=True)
+        response_sample.update({"recipes": [get_recipe()], "recipes_count": 1})
         print_(f'===subscribe_response_sample {response_sample}')
         return response_sample
 
     def test_subscribe(self):
         self.test_instance = self.author
-        get_recipe(self.test_instance)
+        create_recipe(self.test_instance)
         URL = f'{self.get_url(True)}subscribe/'
         NOT_FOUND = f'{self.get_url(not_found=True)}subscribe/'
         confirm_405(self, URL, ['POST', 'DELETE'])
@@ -195,7 +195,7 @@ class UsersAPITest(AbstractAPITest):
 
     def test_subscriptions(self):
         self.test_instance = self.author
-        get_recipe(self.test_instance)
+        create_recipe(self.test_instance)
         URL = f'{self.get_url()}subscriptions/'
         confirm_405(self, URL, ['GET'])
         POST_query(

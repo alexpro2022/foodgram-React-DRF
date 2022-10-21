@@ -8,19 +8,21 @@ from .fixtures import (
 from .standard_LCRUD import GET_query
 
 
-RESPONSE_SAMPLE = {
-    "id": 1,
-    "name": "Капуста",
-    "measurement_unit": "г"
-}
-
-
-def get_ingredient(name='Капуста'):
+def create_ingredient(name='Капуста'):
     ingredient, _ = Ingredient.objects.get_or_create(
         name=name,
         measurement_unit='г',
     )
     return ingredient
+
+
+def get_ingredient():
+    obj = Ingredient.objects.last()
+    return {
+        "id": obj.pk,
+        "name": obj.name,
+        "measurement_unit": obj.measurement_unit
+    }
 
 
 class IngredientsAPITest(AbstractAPITest):
@@ -29,7 +31,7 @@ class IngredientsAPITest(AbstractAPITest):
     def setUpClass(cls):
         super().setUpClass()
         cls.BASE_URL = '/api/ingredients/'
-        cls.test_instance = get_ingredient()
+        cls.test_instance = create_ingredient()
 
     def test_not_allowed_actions(self):
         confirm_405(self, self.get_url(), ['GET'])
@@ -40,8 +42,8 @@ class IngredientsAPITest(AbstractAPITest):
         SEARCH_URL = f'{URL}?name=Кап'
         INVALID_SEARCH_URL = f'{URL}?name=Кар'
         CASES = (
-            (URL, [RESPONSE_SAMPLE]),
-            (SEARCH_URL, [RESPONSE_SAMPLE]),
+            (URL, [get_ingredient()]),
+            (SEARCH_URL, [get_ingredient()]),
             (INVALID_SEARCH_URL, []),
         )
         for url, sample in CASES:
@@ -50,7 +52,7 @@ class IngredientsAPITest(AbstractAPITest):
 
     def test_retrieve_action(self):
         CASES = (
-            (self.get_url(True), status.HTTP_200_OK, RESPONSE_SAMPLE),
+            (self.get_url(True), status.HTTP_200_OK, get_ingredient()),
             (self.get_url(not_found=True), status.HTTP_404_NOT_FOUND, None),
         )
         for url, status_code, sample in CASES:
