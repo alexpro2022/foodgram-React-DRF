@@ -58,14 +58,7 @@ def get_response_sample(author):
         "id": 1,
         "tags": [get_tag()],
         "author": get_user(author),
-        "ingredients": [
-            {
-                "id": 1,
-                "name": "Капуста",
-                "measurement_unit": "г",
-                "amount": 500
-            }
-        ],
+        "ingredients": [ingredient],
         "is_favorited": False,
         "is_in_shopping_cart": False,
         "name": "Recipe",
