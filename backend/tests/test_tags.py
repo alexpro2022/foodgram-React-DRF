@@ -1,11 +1,8 @@
 from rest_framework import status
 
 from recipes.models import Tag
-from .fixtures import (
-    AbstractAPITest,
-    confirm_405,
-)
-from .standard_LCRUD import GET_query
+from .fixtures import AbstractAPITest
+from .utils import confirm_405, query
 
 
 def create_tag(unique_slug='breakfast'):
@@ -40,7 +37,7 @@ class TagsAPITest(AbstractAPITest):
         confirm_405(self, self.get_url(True), ['GET'])
 
     def test_list_action(self):
-        GET_query(self, self.client, self.get_url(), response_sample=[get_tag()])
+        query(self, 'GET', self.client, self.get_url(), response_sample=[get_tag()])
 
     def test_retrieve_action(self):
         CASES = (
@@ -49,4 +46,4 @@ class TagsAPITest(AbstractAPITest):
         )
         for url, status_code, sample in CASES:
             with self.subTest(url=url):
-                GET_query(self, self.client, url, status_code, sample)
+                query(self, 'GET', self.client, url, status_code, sample)

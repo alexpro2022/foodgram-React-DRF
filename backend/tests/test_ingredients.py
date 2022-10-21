@@ -1,11 +1,8 @@
 from rest_framework import status
 
 from recipes.models import Ingredient
-from .fixtures import (
-    AbstractAPITest,
-    confirm_405,
-)
-from .standard_LCRUD import GET_query
+from .fixtures import AbstractAPITest
+from .utils import confirm_405, query
 
 
 def create_ingredient(name='Капуста'):
@@ -16,9 +13,9 @@ def create_ingredient(name='Капуста'):
     return ingredient
 
 
-def get_ingredient(amount=None):
+def get_ingredient(amount=False):
     obj = Ingredient.objects.last()
-    if amount is None:
+    if not amount:
         return {
             "id": obj.pk,
             "name": obj.name,
@@ -55,7 +52,7 @@ class IngredientsAPITest(AbstractAPITest):
         )
         for url, sample in CASES:
             with self.subTest(url=url):
-                GET_query(self, self.client, url, response_sample=sample)
+                query(self, 'GET', self.client, url, response_sample=sample)
 
     def test_retrieve_action(self):
         CASES = (
@@ -64,4 +61,4 @@ class IngredientsAPITest(AbstractAPITest):
         )
         for url, status_code, sample in CASES:
             with self.subTest(url=url):
-                GET_query(self, self.client, url, status_code, sample)
+                query(self, 'GET', self.client, url, status_code, sample)

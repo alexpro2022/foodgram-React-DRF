@@ -1,19 +1,12 @@
 from rest_framework import status
 
-from .fixtures import (
-    USER,
-    AbstractAPITest,
+from .fixtures import AbstractAPITest, get_user, USER
+from .test_recipes import create_recipe, get_recipe
+from .utils import (
     confirm_405,
     get_next_pk,
-    get_user,
-    print_,
+    query,
 )
-from .standard_LCRUD import (
-    GET_query,
-    POST_query,
-    DELETE_query,
-)
-from .test_recipes import create_recipe, get_recipe
 
 
 class UsersAPITest(AbstractAPITest):
@@ -59,7 +52,7 @@ class UsersAPITest(AbstractAPITest):
         )
         for url, status_code, sample in CASES:
             with self.subTest(url=url):
-                GET_query(self, self.client, url, status_code, sample)
+                query(self, 'GET', self.client, url, status_code, sample)
 
     def test_retrieve_action(self):
         CASES = (
@@ -69,7 +62,7 @@ class UsersAPITest(AbstractAPITest):
         )
         for client, url, status_code, sample in CASES:
             with self.subTest(client=client, url=url):
-                GET_query(self, client, url, status_code, sample)
+                query(self, 'GET', client, url, status_code, sample)
 
     def test_create_action(self):
         create_payload = {
@@ -100,9 +93,9 @@ class UsersAPITest(AbstractAPITest):
         )
         for payload, status_code, sample in CASES:
             with self.subTest(status_code=status_code):
-                POST_query(
-                    self, self.client, self.get_url(),
-                    payload, status_code, sample)
+                query(
+                    self, 'POST', self.client, self.get_url(),
+                    status_code, sample, payload)
 
     def test_ME_action(self):
         URL = f'{self.get_url()}me/'
@@ -114,8 +107,7 @@ class UsersAPITest(AbstractAPITest):
         )
         for client, status_code, sample in CASES:
             with self.subTest(client=client):
-                GET_query(self, client, URL, status_code, sample)
-        print_('===ME - OK===')
+                query(self, 'GET', client, URL, status_code, sample)
 
     def test_SET_PASSWORD_action(self):
         URL = f'{self.get_url()}set_password/'
@@ -131,8 +123,7 @@ class UsersAPITest(AbstractAPITest):
         )
         for client, status_code in CASES:
             with self.subTest(client=client, status_cose=status_code):
-                POST_query(self, client, URL, payload, status_code)
-        print_('===SET_PASSWORD - OK===')
+                query(self, 'POST', client, URL, status_code, payload=payload)
 
     def test_LOGIN_action(self):
         URL = '/api/auth/token/login/'
@@ -143,7 +134,6 @@ class UsersAPITest(AbstractAPITest):
         response = self.client.post(URL, payload)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIsInstance(response.data.get('auth_token'), str)
-        print_('===LOGIN - OK===')
 
     def test_LOGOUT_actions(self):
         URL = '/api/auth/token/logout/'
@@ -155,12 +145,10 @@ class UsersAPITest(AbstractAPITest):
             with self.subTest(client=client):
                 response = client.post(URL)
                 self.assertEqual(response.status_code, status_code)
-        print_('===LOGOUT - OK===')
 
     def _get_subscribe_response_sample(self):
         response_sample = get_user(self.author, is_subscribed=True)
-        response_sample.update({"recipes": [get_recipe()], "recipes_count": 1})
-        print_(f'===subscribe_response_sample {response_sample}')
+        response_sample.update({"recipes": [get_recipe(True)], "recipes_count": 1})
         return response_sample
 
     def test_subscribe(self):
@@ -179,7 +167,7 @@ class UsersAPITest(AbstractAPITest):
         )
         for client, url, status_code, sample in SUBSCRIBE_CASES:
             with self.subTest(method='subscribe', client=client):
-                POST_query(self, client, url, None, status_code, sample)
+                query(self, 'POST', client, url, status_code, sample)
 
         UNSUBSCRIBE_CASES = (
             (self.client, URL, status.HTTP_401_UNAUTHORIZED),
@@ -190,17 +178,15 @@ class UsersAPITest(AbstractAPITest):
         )
         for client, url, status_code in UNSUBSCRIBE_CASES:
             with self.subTest(method='unsubscribe', client=client):
-                DELETE_query(self, client, url, status_code)
-        print_('===SUBSCRIBE - OK===')
+                query(self, 'DELETE', client, url, status_code)
 
     def test_subscriptions(self):
         self.test_instance = self.author
         create_recipe(self.test_instance)
+        URL = f'{self.get_url(True)}subscribe/'
+        query(self, 'POST', self.authenticated, URL, status.HTTP_201_CREATED)
         URL = f'{self.get_url()}subscriptions/'
         confirm_405(self, URL, ['GET'])
-        POST_query(
-            self, self.authenticated,
-            f'{self.get_url()}{self.test_instance.id}/subscribe/')
         response_sample = {
             "count": 1,
             "next": None,
@@ -213,5 +199,4 @@ class UsersAPITest(AbstractAPITest):
         )
         for client, status_code, sample in CASES:
             with self.subTest(client=client):
-                GET_query(self, client, URL, status_code, sample)
-        print_('===SUBSCRIPTIONS - OK===')
+                query(self, 'GET', client, URL, status_code, sample)
