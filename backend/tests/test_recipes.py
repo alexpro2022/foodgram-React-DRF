@@ -170,14 +170,7 @@ class RecipesAPITest(AbstractAPITest):
             "id": 2,
             "tags": [get_tag()],
             "author": get_user(self.user),
-            "ingredients": [
-                {
-                    "id": 1,
-                    "name": "Капуста",
-                    "measurement_unit": "г",
-                    "amount": 111
-                }
-            ],
+            "ingredients": [get_ingredient(amount=111)],
             "is_favorited": False,
             "is_in_shopping_cart": False,
             "image": IMAGE_PATH,
@@ -216,14 +209,7 @@ class RecipesAPITest(AbstractAPITest):
             "id": 1,
             "tags": [get_tag()],
             "author": get_user(self.author),
-            "ingredients": [
-                {
-                    "id": 1,
-                    "name": "Капуста",
-                    "measurement_unit": "г",
-                    "amount": 1000
-                }
-            ],
+            "ingredients": [get_ingredient(amount=1000)],
             "is_favorited": False,
             "is_in_shopping_cart": False,
             # "name": "PATCH",
