@@ -1,6 +1,11 @@
 from rest_framework import status
 
-from recipes.models import Recipe, RecipeIngredient
+from recipes.models import (
+    Favorites,
+    Recipe,
+    RecipeIngredient,
+    ShoppingCart,
+)
 from .fixtures import AbstractAPITest, get_user
 from .test_ingredients import create_ingredient, get_ingredient
 from .test_tags import create_tag, get_tag
@@ -83,7 +88,6 @@ class RecipesAPITest(AbstractAPITest):
             "previous": None,
             "results": [author_recipe, user_recipe]
         }
-        URL_CASE = (URL, status.HTTP_200_OK, response_sample)
 
         # ---PAGINATION---
         URL_page1 = f'{URL}?page=1&limit=1'
@@ -160,24 +164,54 @@ class RecipesAPITest(AbstractAPITest):
             (URL_lunch, status.HTTP_200_OK, response_lunch),
             (URL_invalid_tag, status.HTTP_400_BAD_REQUEST, None),
         )
-
-        # ---FILTERING - favorites
         URL_is_favorited = f'{URL}?is_favorited=1'
         URL_is_in_shopping_cart = f'{URL}?is_in_shopping_cart=1'
-        FAVORITE_CART_CASES = (
-            (URL_is_favorited, status.HTTP_200_OK, response_sample),
-            (URL_is_in_shopping_cart, status.HTTP_200_OK, response_sample),
-        )
-        CASES = (
-            URL_CASE,
+
+        CASES_for_anonymous_user = (
+            (URL, status.HTTP_200_OK, response_sample),
             *PAGINATION_CASES,
             *AUTHOR_CASES,
             *TAGS_CASES,
-            *FAVORITE_CART_CASES,  # cases for anonymous only, another cases below
+            (URL_is_favorited, status.HTTP_200_OK, response_sample),
+            (URL_is_in_shopping_cart, status.HTTP_200_OK, response_sample),
         )
-        for url, status_code, sample in CASES:
+        for url, status_code, sample in CASES_for_anonymous_user:
             with self.subTest(url=url):
                 query(self, 'GET', self.client, url, status_code, sample)
+
+        # ---FILTERING - favorites
+        Favorites.objects.create(
+            user=self.user,
+            recipe=self.test_instance,
+        )
+        author_recipe['is_favorited'] = True
+        URL_is_not_favorited = f'{URL}?is_favorited=0'
+        CASES_favorite = (
+            (self.authenticated, URL_is_favorited, status.HTTP_200_OK, response_author),
+            (self.authenticated, URL_is_not_favorited, status.HTTP_200_OK, response_sample),
+            (self.auth_author, URL_is_favorited, status.HTTP_200_OK, empty_response_sample),
+        )
+
+        # ---FILTERING - shopping_cart
+        ShoppingCart.objects.create(
+            user=self.user,
+            recipe=self.test_instance,
+        )
+        author_recipe['is_in_shopping_cart'] = True
+        URL_is_not_in_shopping_cart = f'{URL}?is_in_shopping_cart=0'
+        CASES_shopping_cart = (
+            (self.authenticated, URL_is_in_shopping_cart, status.HTTP_200_OK, response_author),
+            (self.authenticated, URL_is_not_in_shopping_cart, status.HTTP_200_OK, response_sample),
+            (self.auth_author, URL_is_in_shopping_cart, status.HTTP_200_OK, empty_response_sample),
+        )
+
+        CASES_for_authenticated_users = (
+            *CASES_favorite,
+            *CASES_shopping_cart,
+        )
+        for client, url, status_code, sample in CASES_for_authenticated_users:
+            with self.subTest(client=client, url=url):
+                query(self, 'GET', client, url, status_code, sample)
 
     def test_retrieve_action(self):
         CASES = (
