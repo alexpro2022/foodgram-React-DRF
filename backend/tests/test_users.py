@@ -24,26 +24,30 @@ class UsersAPITest(AbstractAPITest):
     def test_list_action(self):
         URL = self.get_url()
         response_sample = {
-            "count": 2,
+            "count": 3,
             "next": None,
             "previous": None,
-            "results": [get_user(self.user), get_user(self.author)]
+            "results": [
+                get_user(self.user),
+                get_user(self.author),
+                get_user(self.another),
+            ]
         }
         URL_page1 = f'{URL}?page=1&limit=1'
         response_sample1 = {
-            "count": 2,
+            "count": 3,
             "next": "http://testserver/api/users/?limit=1&page=2",
             "previous": None,
             "results": [get_user(self.user)]
         }
         URL_page2 = f'{URL}?page=2&limit=1'
         response_sample2 = {
-            "count": 2,
-            "next": None,
+            "count": 3,
+            "next": "http://testserver/api/users/?limit=1&page=3",
             "previous": "http://testserver/api/users/?limit=1",
             "results": [get_user(self.author)]
         }
-        URL_page3 = f'{URL}?page=3&limit=1'
+        URL_page3 = f'{URL}?page=3&limit=2'
         CASES = (
             (URL, status.HTTP_200_OK, response_sample),
             (URL_page1, status.HTTP_200_OK, response_sample1),

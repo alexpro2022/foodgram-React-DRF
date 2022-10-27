@@ -39,14 +39,15 @@ def confirm_405(self, url, allowed=None, not_allowed=None):
             )
 
 
-def query(self, method, client, url, status_code=status.HTTP_200_OK, response_sample=None, payload=None):
+def query(self, method, client, url, status_code=status.HTTP_200_OK, response_sample=None, payload=None, info=False):
     def response(self, response, status_code, response_sample=None):
         self.assertEqual(response.status_code, status_code)
         if response_sample is not None:
-            print_(f'=response.data: {self}\n {response.data}')
-            print_('-------------------')
-            print_(f'=response_sample: \n {response_sample}')
-            print_('===================')
+            if info:
+                print(f'=response.data: {self}\n {response.data}')
+                print('-------------------')
+                print(f'=response_sample: \n {response_sample}')
+                print('===================')
             self.assertEqual(response.data, response_sample)
         return response
     method = method.upper()

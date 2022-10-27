@@ -21,6 +21,13 @@ AUTHOR = {
     'last_name': 'last_name_Author',
     'password': 'X123C234V345@_Author',
 }
+ANOTHER = {
+    'email': 'another@another.com',
+    'username': 'test_another',
+    'first_name': 'first_name_Another',
+    'last_name': 'last_name_Another',
+    'password': 'X123C234V345@_Another',
+}
 
 
 def create_user(user):
@@ -63,6 +70,8 @@ class AbstractAPITest(APITestCase):
         cls.author = create_user(AUTHOR)
         cls.auth_author = APIClient()
         cls.auth_author.force_authenticate(cls.author)
+
+        cls.another = create_user(ANOTHER)
 
         # ===to be overriden===
         cls.BASE_URL = None

@@ -91,10 +91,9 @@ class RecipeViewSet(ModelViewSet):
 
     def _param(self, param_name):
         try:
-            int(self.request.query_params.get(param_name))
+            return int(self.request.query_params.get(param_name)) == 1
         except (TypeError, ValueError):
             return False
-        return True
 
     def get_queryset(self):
         recipes = Recipe.objects.all()

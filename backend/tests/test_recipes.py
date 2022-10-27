@@ -18,7 +18,7 @@ IMAGE_FOLDER = Recipe._meta.get_field("image").upload_to
 IMAGE_PATH = f'http://testserver/media/{IMAGE_FOLDER}{IMAGE_FILE}'
 
 
-def create_recipe(author):
+def create_recipe(author, tag='breakfast'):
     recipe, created = Recipe.objects.get_or_create(
         author=author,
         name='Recipe',
@@ -27,7 +27,7 @@ def create_recipe(author):
         cooking_time=10,
     )
     if created:
-        recipe.tags.set([create_tag()])
+        recipe.tags.set([create_tag(tag)])
         RecipeIngredient.objects.get_or_create(
             recipe=recipe,
             ingredient=create_ingredient(),
@@ -37,7 +37,7 @@ def create_recipe(author):
 
 
 def get_recipe(reduced=False, ingredient_amount=AMOUNT):
-    obj = Recipe.objects.last()
+    obj = Recipe.objects.order_by('id').last()
     if reduced:
         return {
             "id": obj.pk,
@@ -59,23 +59,6 @@ def get_recipe(reduced=False, ingredient_amount=AMOUNT):
     }
 
 
-'''
-def get_recipe_response_sample(author):
-    return {
-        "id": 1,
-        "tags": [get_tag()],
-        "author": get_user(author),
-        "ingredients": [get_ingredient(AMOUNT)],
-        "is_favorited": False,
-        "is_in_shopping_cart": False,
-        "name": "Recipe",
-        "image": IMAGE_PATH,
-        "text": "Description",
-        "cooking_time": 10
-    }
-'''
-
-
 class RecipesAPITest(AbstractAPITest):
     """Тестируем API рецептов."""
     @classmethod
@@ -89,13 +72,112 @@ class RecipesAPITest(AbstractAPITest):
         confirm_405(self, self.get_url(True), not_allowed=['PUT', 'POST'])
 
     def test_list_action(self):
+        author_recipe = get_recipe()
+        create_recipe(self.user, 'lunch')
+        user_recipe = get_recipe()
+
+        URL = self.get_url()
         response_sample = {
+            "count": 2,
+            "next": None,
+            "previous": None,
+            "results": [author_recipe, user_recipe]
+        }
+        URL_CASE = (URL, status.HTTP_200_OK, response_sample)
+
+        # ---PAGINATION---
+        URL_page1 = f'{URL}?page=1&limit=1'
+        response_page1 = {
+            "count": 2,
+            "next": "http://testserver/api/recipes/?limit=1&page=2",
+            "previous": None,
+            "results": [author_recipe]
+        }
+        URL_page2 = f'{URL}?page=2&limit=1'
+        response_page2 = {
+            "count": 2,
+            "next": None,
+            "previous": "http://testserver/api/recipes/?limit=1",
+            "results": [user_recipe]
+        }
+        URL_page3 = f'{URL}?page=3&limit=1'
+        PAGINATION_CASES = (
+            (URL_page1, status.HTTP_200_OK, response_page1),
+            (URL_page2, status.HTTP_200_OK, response_page2),
+            (URL_page3, status.HTTP_404_NOT_FOUND, None),
+        )
+
+        # ---FILTERING - author
+        URL_author = f'{URL}?author={self.test_instance.author.id}'
+        response_author = {
             "count": 1,
             "next": None,
             "previous": None,
-            "results": [get_recipe()]
+            "results": [author_recipe]
         }
-        query(self, 'GET', self.client, self.get_url(), response_sample=response_sample)
+        URL_user = f'{URL}?author={self.user.id}'
+        response_user = {
+            "count": 1,
+            "next": None,
+            "previous": None,
+            "results": [user_recipe]
+        }
+        URL_another = f'{URL}?author={self.another.id}'
+        empty_response_sample = {
+            "count": 0,
+            "next": None,
+            "previous": None,
+            "results": []
+        }
+        URL_invalid_author = f'{URL}?author={self.test_instance.author.id+10}'
+        AUTHOR_CASES = (
+            (URL_author, status.HTTP_200_OK, response_author),
+            (URL_user, status.HTTP_200_OK, response_user),
+            (URL_another, status.HTTP_200_OK, empty_response_sample),
+            (URL_invalid_author, status.HTTP_400_BAD_REQUEST, None),
+        )
+
+        # ---FILTERING - tags
+        URL_tags = f'{URL}?tags=breakfast&tags=lunch'
+        URL_breakfast = f'{URL}?tags=breakfast'
+        response_breakfast = {
+            "count": 1,
+            "next": None,
+            "previous": None,
+            "results": [author_recipe]
+        }
+        URL_lunch = f'{URL}?tags=lunch'
+        response_lunch = {
+            "count": 1,
+            "next": None,
+            "previous": None,
+            "results": [user_recipe]
+        }
+        URL_invalid_tag = f'{URL}?tags=asf123'
+        TAGS_CASES = (
+            (URL_tags, status.HTTP_200_OK, response_sample),
+            (URL_breakfast, status.HTTP_200_OK, response_breakfast),
+            (URL_lunch, status.HTTP_200_OK, response_lunch),
+            (URL_invalid_tag, status.HTTP_400_BAD_REQUEST, None),
+        )
+
+        # ---FILTERING - favorites
+        URL_is_favorited = f'{URL}?is_favorited=1'
+        URL_is_in_shopping_cart = f'{URL}?is_in_shopping_cart=1'
+        FAVORITE_CART_CASES = (
+            (URL_is_favorited, status.HTTP_200_OK, response_sample),
+            (URL_is_in_shopping_cart, status.HTTP_200_OK, response_sample),
+        )
+        CASES = (
+            URL_CASE,
+            *PAGINATION_CASES,
+            *AUTHOR_CASES,
+            *TAGS_CASES,
+            *FAVORITE_CART_CASES,  # cases for anonymous only, another cases below
+        )
+        for url, status_code, sample in CASES:
+            with self.subTest(url=url):
+                query(self, 'GET', self.client, url, status_code, sample)
 
     def test_retrieve_action(self):
         CASES = (
