@@ -14,7 +14,7 @@ def create_ingredient(name='Капуста'):
 
 
 def get_ingredient(amount=False):
-    obj = Ingredient.objects.last()
+    obj = Ingredient.objects.latest('id')
     if not amount:
         return {
             "id": obj.pk,

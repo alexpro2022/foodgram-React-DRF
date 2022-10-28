@@ -42,7 +42,7 @@ def create_recipe(author, tag='breakfast'):
 
 
 def get_recipe(reduced=False, ingredient_amount=AMOUNT):
-    obj = Recipe.objects.order_by('id').last()
+    obj = Recipe.objects.latest('id')
     if reduced:
         return {
             "id": obj.pk,

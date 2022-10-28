@@ -15,7 +15,7 @@ def create_tag(unique_slug='breakfast'):
 
 
 def get_tag():
-    obj = Tag.objects.order_by('id').last()
+    obj = Tag.objects.latest('id')
     return {
         "id": obj.pk,
         "name": obj.name,
