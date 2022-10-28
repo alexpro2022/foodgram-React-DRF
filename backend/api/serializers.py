@@ -144,13 +144,27 @@ class RecipeSerializer(DynamicFieldsModelSerializer):
         recipe.tags.set(tags)
         if not created:
             recipe.ingredients.clear()
+        recipe_ingredients = []
+        for item in ingredients:
+            id = item['ingredient']['id']
+            ingredient = Ingredient.objects.filter(pk=id)
+            if not ingredient.exists():
+                fail(f'Ингредиента с id={id} не существует')
+            recipe_ingredients.append(RecipeIngredient(
+                recipe=recipe,
+                ingredient=ingredient[0],
+                amount=item['amount'],
+            ))
+        RecipeIngredient.objects.bulk_create(recipe_ingredients)
+        '''
+        ===The below code is less efficient DB hits wise===
         for ingredient in ingredients:
             id = ingredient['ingredient']['id']
             if not Ingredient.objects.filter(pk=id).exists():
                 fail(f'Ингредиента с id={id} не существует')
             recipe.ingredients.add(
                 id,
-                through_defaults={'amount': ingredient['amount']})
+                through_defaults={'amount': ingredient['amount']})'''
         return recipe
 
     def create(self, validated_data):
