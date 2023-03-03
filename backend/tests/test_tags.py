@@ -1,6 +1,7 @@
 from rest_framework import status
 
 from recipes.models import Tag
+
 from .fixtures import AbstractAPITest
 from .utils import confirm_405, query
 

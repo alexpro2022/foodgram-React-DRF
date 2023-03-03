@@ -1,20 +1,11 @@
 from rest_framework import status
 
-from recipes.models import (
-    Favorites,
-    Recipe,
-    RecipeIngredient,
-    ShoppingCart,
-)
+from recipes.models import Favorites, Recipe, RecipeIngredient, ShoppingCart
+
 from .fixtures import AbstractAPITest, get_user
 from .test_ingredients import create_ingredient, get_ingredient
 from .test_tags import create_tag, get_tag
-from .utils import (
-    confirm_405,
-    get_next_pk,
-    query,
-)
-
+from .utils import confirm_405, get_next_pk, query
 
 AMOUNT = 500
 IMAGE = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg=="

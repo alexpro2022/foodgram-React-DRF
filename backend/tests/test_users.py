@@ -1,12 +1,8 @@
 from rest_framework import status
 
-from .fixtures import AbstractAPITest, get_user, USER
+from .fixtures import USER, AbstractAPITest, get_user
 from .test_recipes import create_recipe, get_recipe
-from .utils import (
-    confirm_405,
-    get_next_pk,
-    query,
-)
+from .utils import confirm_405, get_next_pk, query
 
 
 class UsersAPITest(AbstractAPITest):

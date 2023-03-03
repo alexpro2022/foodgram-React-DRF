@@ -3,7 +3,6 @@ from rest_framework import status
 from recipes.models import Ingredient, Recipe, Tag
 from users.models import User
 
-
 DEBUG = False
 
 
