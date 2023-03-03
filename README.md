@@ -4,25 +4,62 @@
 
 Приложение «Продуктовый помощник» - это сайт, на котором пользователи могут публиковать рецепты, добавлять чужие рецепты в избранное и подписываться на публикации других авторов. Сервис «Список покупок» позволяет пользователям создавать список продуктов, которые нужно купить для приготовления выбранных блюд. 
 
+
+
 ## Оглавление
 - [Технологии](#технологии)
 - [Описание работы](#описание-работы)
 - [Установка на новый хост](#установка-на-новый-хост)
-- [Запуск](#запуск-парсера)
+- [Запуск](#запуск)
 - [Автор](#автор)
 
-## Технологии 
+
+
+## Технологии:
+
+
+**Языки программирования, модули и библиотеки:**
+
 [![Python](https://warehouse-camo.ingress.cmh1.psfhosted.org/7c5873f1e0f4375465dfebd35bf18f678c74d717/68747470733a2f2f696d672e736869656c64732e696f2f707970692f707976657273696f6e732f7072657474797461626c652e7376673f6c6f676f3d707974686f6e266c6f676f436f6c6f723d464645383733)](https://www.python.org/)
-[![Pytest](https://img.shields.io/badge/-Pytest-464646?logo=pytest)](https://docs.pytest.org/en/latest/)
-[![Django](https://www.djangoproject.com/m/img/badges/djangoproject120x25.gif)](https://www.djangoproject.com/)
+[![base64](https://img.shields.io/badge/-base64-464646?logo=python)](https://docs.python.org/3/library/base64.html)
+[![csv](https://img.shields.io/badge/-csv-464646?logo=python)](https://docs.python.org/3/library/csv.html)
+[![os](https://img.shields.io/badge/-os-464646?logo=python)](https://docs.python.org/3/library/os.html)
+[![re](https://img.shields.io/badge/-re-464646?logo=python)](https://docs.python.org/3/library/re.html)
+[![sys](https://img.shields.io/badge/-sys-464646?logo=python)](https://docs.python.org/3/library/sys.html)
+
+
+**Фреймворк, расширения и библиотеки:**
+
+[![Django](https://img.shields.io/badge/-Django-464646?logo=Django)](https://www.djangoproject.com/)
 [![Django REST Framework](https://img.shields.io/badge/-Django%20REST%20Framework-464646?logo=Django)](https://www.django-rest-framework.org/)
 [![DJoser](https://img.shields.io/badge/-DJoser-464646?logo=Django)](https://djoser.readthedocs.io/en/latest/)
+[![django-filter](https://img.shields.io/badge/-django--filter-464646?logo=Django)](https://pypi.org/project/django-filter/)
+
+
+**База данных:**
+
 [![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-464646?logo=PostgreSQL)](https://www.postgresql.org/)
+
+
+**Контейнеризация:**
+
+[![docker](https://img.shields.io/badge/-Docker-464646?logo=docker)](https://www.docker.com/)
+[![docker_compose](https://img.shields.io/badge/-Docker%20Compose-464646?logo=docker)](https://docs.docker.com/compose/)
+
+
+**Серверные технологии:**
+
 [![Nginx](https://img.shields.io/badge/-NGINX-464646?logo=NGINX)](https://nginx.org/ru/)
 [![gunicorn](https://img.shields.io/badge/-gunicorn-464646?logo=gunicorn)](https://gunicorn.org/)
-[![docker](https://img.shields.io/badge/-Docker-464646?logo=docker)](https://www.docker.com/)
-[![GitHub%20Actions](https://img.shields.io/badge/-GitHub%20Actions-464646?logo=GitHub%20actions)](https://github.com/features/actions)
+
+
+**CI/CD:**
+
+[![GitHub](https://img.shields.io/badge/-GitHub-464646?logo=GitHub)](https://docs.github.com/en)
+[![GitHub_Actions](https://img.shields.io/badge/-GitHub_Actions-464646?logo=GitHub)](https://docs.github.com/en/actions)
+[![docker_hub](https://img.shields.io/badge/-Docker_Hub-464646?logo=docker)](https://hub.docker.com/)
 [![Yandex.Cloud](https://img.shields.io/badge/-Yandex.Cloud-464646?logo=Yandex)](https://cloud.yandex.ru/)
+[![Telegram](https://img.shields.io/badge/-Telegram-464646?logo=Telegram)](https://core.telegram.org/api)
 
 [⬆️Оглавление](#оглавление)
 
