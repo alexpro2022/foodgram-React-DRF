@@ -1,21 +1,40 @@
-# FOODGRAM project
+# Приложение «Продуктовый помощник»
 ![](https://github.com/alexpro2022/foodgram-project-react/actions/workflows/foodgram_workflow.yml/badge.svg)
 
+Приложение «Продуктовый помощник» - это сайт, на котором пользователи могут публиковать рецепты, добавлять чужие рецепты в избранное и подписываться на публикации других авторов. Сервис «Список покупок» позволяет пользователям создавать список продуктов, которые нужно купить для приготовления выбранных блюд. 
 
-## Стек: 
-[![Python](https://img.shields.io/badge/-Python-464646?color=yellowgreen&logo=Python)](https://www.python.org/)
-[![Django](https://img.shields.io/badge/-Django-464646?color=yellowgreen&logo=Django)](https://www.djangoproject.com/)
-[![Django REST Framework](https://img.shields.io/badge/-Django%20REST%20Framework-464646?color=yellowgreen&logo=Django%20REST%20Framework)](https://www.django-rest-framework.org/)
-[![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-464646?color=yellowgreen&logo=PostgreSQL)](https://www.postgresql.org/)
-[![Nginx](https://img.shields.io/badge/-NGINX-464646?color=yellowgreen&logo=NGINX)](https://nginx.org/ru/)
-[![gunicorn](https://img.shields.io/badge/-gunicorn-464646?color=yellowgreen&logo=gunicorn)](https://gunicorn.org/)
-[![docker](https://img.shields.io/badge/-Docker-464646?color=yellowgreen&logo=docker)](https://www.docker.com/)
-[![GitHub%20Actions](https://img.shields.io/badge/-GitHub%20Actions-464646?color=yellowgreen&logo=GitHub%20actions)](https://github.com/features/actions)
-[![Yandex.Cloud](https://img.shields.io/badge/-Yandex.Cloud-464646?color=yellowgreen&logo=Yandex.Cloud)](https://cloud.yandex.ru/)
+## Оглавление
+- [Технологии](#технологии)
+- [Описание работы](#описание-работы)
+- [Установка на новый хост](#установка-на-новый-хост)
+- [Запуск](#запуск-парсера)
+- [Автор](#автор)
 
-## Установка на новый хост:
+## Технологии 
+[![Python](https://warehouse-camo.ingress.cmh1.psfhosted.org/7c5873f1e0f4375465dfebd35bf18f678c74d717/68747470733a2f2f696d672e736869656c64732e696f2f707970692f707976657273696f6e732f7072657474797461626c652e7376673f6c6f676f3d707974686f6e266c6f676f436f6c6f723d464645383733)](https://www.python.org/)
+[![Pytest](https://img.shields.io/badge/-Pytest-464646?logo=pytest)](https://docs.pytest.org/en/latest/)
+[![Django](https://www.djangoproject.com/m/img/badges/djangoproject120x25.gif)](https://www.djangoproject.com/)
+[![Django REST Framework](https://img.shields.io/badge/-Django%20REST%20Framework-464646?logo=Django)](https://www.django-rest-framework.org/)
+[![DJoser](https://img.shields.io/badge/-DJoser-464646?logo=Django)](https://djoser.readthedocs.io/en/latest/)
+[![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-464646?logo=PostgreSQL)](https://www.postgresql.org/)
+[![Nginx](https://img.shields.io/badge/-NGINX-464646?logo=NGINX)](https://nginx.org/ru/)
+[![gunicorn](https://img.shields.io/badge/-gunicorn-464646?logo=gunicorn)](https://gunicorn.org/)
+[![docker](https://img.shields.io/badge/-Docker-464646?logo=docker)](https://www.docker.com/)
+[![GitHub%20Actions](https://img.shields.io/badge/-GitHub%20Actions-464646?logo=GitHub%20actions)](https://github.com/features/actions)
+[![Yandex.Cloud](https://img.shields.io/badge/-Yandex.Cloud-464646?logo=Yandex)](https://cloud.yandex.ru/)
 
-### I. Подготовка сервера:
+[⬆️Оглавление](#оглавление)
+
+
+## Описание работы
+
+
+[⬆️Оглавление](#оглавление)
+
+
+## Установка на новый хост
+
+### I. Подготовка сервера
 1. Убедитесь, что на виртуальной машине установлен и запущен Docker и плагин Docker Compose:
     ```
     docker --version
@@ -27,13 +46,13 @@
     sudo systemctl stop nginx
     ```
 
-### II. Github:
+### II. Github
 1. Сделайте fork репозитория https://github.com/alexpro2022/foodgram-project-react
 
 2. Отредактируйте значение secrets.HOST:
     из вашего репозитория -> Settings -> Secrets -> Actions -> HOST -> Update -> укажите IP вашего сервера
 
-### III. Ваш компьютер:   
+### III. Ваш компьютер   
 1. Клонируйте новый репозиторий себе на компьютер.
 
 2. Отредактируйте server_name в infra/nginx.conf (укажите IP своего сервера)
@@ -52,7 +71,7 @@
     git push
     ```
 
-### IV. Сервер:
+### IV. Сервер
 1. Войдите в домашнюю папку home/<username>/ на свой удаленный сервер в облаке.
 
 2. Проект будет развернут в три контейнера (db, web, nginx). Посмотреть информацию о состоянии которых можно с помощью команды:
@@ -71,6 +90,9 @@
     sudo docker-compose exec web python manage.py createsuperuser
     ```
 
+[⬆️Оглавление](#оглавление)
+
+
 ## Проект развернут на сервере: 
 ### IP 84.252.138.7
 ### Доступные ресурсы:
@@ -85,6 +107,10 @@ Logins of installed test users with common password 111:
 -angry@yamdb.fake
 ```
 
+[⬆️Оглавление](#оглавление)
 
-## Автор:
+
+## Автор
 [Проскуряков Алексей](https://github.com/alexpro2022)
+
+[⬆️В начало](#Приложение-«Продуктовый-помощник»)
