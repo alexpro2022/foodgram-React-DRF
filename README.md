@@ -1,5 +1,6 @@
 # Приложение «Продуктовый помощник»
-![](https://github.com/alexpro2022/foodgram-project-react/actions/workflows/foodgram_workflow.yml/badge.svg)
+[![status](https://github.com/alexpro2022/foodgram-project-react/actions/workflows/dockerhub_workflow.yml/badge.svg)](https://github.com/alexpro2022/foodgram-project-react/actions)
+[![codecov](https://codecov.io/gh/alexpro2022/foodgram-project-react/branch/master/graph/badge.svg?token=4HIR16U0RJ)](https://codecov.io/gh/alexpro2022/foodgram-project-react)
 
 Приложение «Продуктовый помощник» - это сайт, на котором пользователи могут публиковать рецепты, добавлять чужие рецепты в избранное и подписываться на публикации других авторов. Сервис «Список покупок» позволяет пользователям создавать список продуктов, которые нужно купить для приготовления выбранных блюд. 
 
