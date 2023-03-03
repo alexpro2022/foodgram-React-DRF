@@ -18,7 +18,7 @@
 ## Технологии:
 
 
-**Языки программирования, модули и библиотеки:**
+**Языки программирования и модули:**
 
 [![Python](https://warehouse-camo.ingress.cmh1.psfhosted.org/7c5873f1e0f4375465dfebd35bf18f678c74d717/68747470733a2f2f696d672e736869656c64732e696f2f707970692f707976657273696f6e732f7072657474797461626c652e7376673f6c6f676f3d707974686f6e266c6f676f436f6c6f723d464645383733)](https://www.python.org/)
 [![base64](https://img.shields.io/badge/-base64-464646?logo=python)](https://docs.python.org/3/library/base64.html)
@@ -28,7 +28,7 @@
 [![sys](https://img.shields.io/badge/-sys-464646?logo=python)](https://docs.python.org/3/library/sys.html)
 
 
-**Фреймворк, расширения и библиотеки:**
+**Фреймворк, библиотеки и приложения:**
 
 [![Django](https://img.shields.io/badge/-Django-464646?logo=Django)](https://www.djangoproject.com/)
 [![Django REST Framework](https://img.shields.io/badge/-Django%20REST%20Framework-464646?logo=Django)](https://www.django-rest-framework.org/)
