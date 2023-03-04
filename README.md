@@ -25,15 +25,17 @@
 [![csv](https://img.shields.io/badge/-csv-464646?logo=python)](https://docs.python.org/3/library/csv.html)
 [![os](https://img.shields.io/badge/-os-464646?logo=python)](https://docs.python.org/3/library/os.html)
 [![re](https://img.shields.io/badge/-re-464646?logo=python)](https://docs.python.org/3/library/re.html)
+[![shutil](https://img.shields.io/badge/-shutil-464646?logo=python)](https://docs.python.org/3/library/shutil.html)
 [![sys](https://img.shields.io/badge/-sys-464646?logo=python)](https://docs.python.org/3/library/sys.html)
+[![tempfile](https://img.shields.io/badge/-tempfile-464646?logo=python)](https://docs.python.org/3/library/tempfile.html)
 
 
 **Фреймворк, библиотеки и приложения:**
 
 [![Django](https://img.shields.io/badge/-Django-464646?logo=Django)](https://www.djangoproject.com/)
-[![Django REST Framework](https://img.shields.io/badge/-Django%20REST%20Framework-464646?logo=Django)](https://www.django-rest-framework.org/)
-[![DJoser](https://img.shields.io/badge/-DJoser-464646?logo=Django)](https://djoser.readthedocs.io/en/latest/)
-[![django-filter](https://img.shields.io/badge/-django--filter-464646?logo=Django)](https://pypi.org/project/django-filter/)
+[![Django REST Framework](https://img.shields.io/badge/-Django%20REST%20Framework-464646?logo=drf)](https://www.django-rest-framework.org/)
+[![DJoser](https://img.shields.io/badge/-DJoser-464646?logo=DJoser)](https://djoser.readthedocs.io/en/latest/)
+[![django-filter](https://img.shields.io/badge/-django--filter-464646?logo=)](https://pypi.org/project/django-filter/)
 
 
 **База данных:**
