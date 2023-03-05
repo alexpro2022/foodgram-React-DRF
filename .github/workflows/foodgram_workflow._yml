@@ -58,7 +58,7 @@ jobs:
         with:
           context: backend
           push: true
-          tags: alexpro1972/foodgram_backend:latest
+          tags: ${{ secrets.USER }}/foodgram_backend:latest
 
   deploy:
     runs-on: ubuntu-latest
