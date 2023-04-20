@@ -120,7 +120,7 @@ docker compose -f infra/local/docker-compose.yml down -v
 
 1. Сделайте [форк](https://docs.github.com/en/get-started/quickstart/fork-a-repo) в свой репозиторий.
 
-2. Создайте Actions.secrets согласно списку ниже (значения указаны для примера) + переменные окружения из .env-файла:
+2. Создайте Actions.Secrets согласно списку ниже (значения указаны для примера) + переменные окружения из .env-файла:
 ```
 PROJECT_NAME= 
 
@@ -149,6 +149,10 @@ TELEGRAM_BOT_TOKEN=
   * создан суперюзер (пользователь с правами админа) с учетными данными из переменных окружения ADMIN_USERNAME, ADMIN_EMAIL, ADMIN_PASSWORD
   * собрана статика 
 
+Вход в админ-зону осуществляется по адресу: http://hostname/admin/, где hostname: 
+  * localhost
+  * IP-адрес удаленного сервера  
+
 Учетные данные тестовых аккаунтов для входа в приложение:
   * пароль - 111 (можно поменять для каждого пользователя, включая тестовых)
   * поле email:
@@ -159,10 +163,6 @@ TELEGRAM_BOT_TOKEN=
       reviewer@yamdb.fake
       angry@yamdb.fake
       ```
-
-Вход в админ-зону осуществляется по адресу: http://hostname/admin/, где hostname: 
-  * localhost
-  * IP-адрес удаленного сервера
 
 [⬆️Оглавление](#оглавление)
 
