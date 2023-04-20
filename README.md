@@ -153,11 +153,11 @@ TELEGRAM_BOT_TOKEN=
   * пароль - 111 (можно поменять для каждого пользователя, включая тестовых)
   * поле email:
       ```
-      -bingobongo@yamdb.fake
-      -capt_obvious@yamdb.fake
-      -faust@yamdb.fake
-      -reviewer@yamdb.fake
-      -angry@yamdb.fake
+      bingobongo@yamdb.fake
+      capt_obvious@yamdb.fake
+      faust@yamdb.fake
+      reviewer@yamdb.fake
+      angry@yamdb.fake
       ```
 
 Вход в админ-зону осуществляется по адресу: http://hostname/admin/, где hostname: 
@@ -165,10 +165,6 @@ TELEGRAM_BOT_TOKEN=
   * IP-адрес удаленного сервера
 
 [⬆️Оглавление](#оглавление)
-
-
-
-Logins of installed test users with common password 111:
 
 
 
