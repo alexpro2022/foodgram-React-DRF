@@ -3,7 +3,6 @@ from csv import DictReader
 from django.core.management import BaseCommand
 
 from users.models import Subscribe, User
-
 from ._utils import DATA_PATH, info
 
 

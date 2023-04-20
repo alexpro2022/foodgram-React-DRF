@@ -1,4 +1,7 @@
+import os
 from csv import DictReader
+
+from users.models import User
 
 DATA_PATH = 'data/'
 
@@ -9,7 +12,7 @@ def info(func):
             self.stdout.write(
                 f'{self.FILE_NAME} data already loaded...exiting.')
             return
-        self.stdout.write(f'Loading {self.FILE_NAME} data')
+        self.stdout.write(f'=Loading {self.FILE_NAME} data')
         func(self, *args, **options)
         self.stdout.write(self.style.SUCCESS(
             f'===Successfully loaded: {self.CLS.objects.all()}'))
@@ -25,4 +28,8 @@ def load(klass, file_name):
         for field in fields:
             if field.name in row.keys():
                 d[field.name] = row[field.name]
-        klass.objects.create(**d)
+        if klass is User:
+            d['password'] = os.getenv('TEST_USERS_PASSWORD')
+            User.objects.create_user(**d)
+        else:
+            klass.objects.create(**d)

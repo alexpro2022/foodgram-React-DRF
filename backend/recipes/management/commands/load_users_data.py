@@ -1,9 +1,7 @@
 import os
-
 from django.core.management import BaseCommand
 
 from users.models import User
-
 from ._utils import info, load
 
 
@@ -15,6 +13,10 @@ class Command(BaseCommand):
     @info
     def handle(self, *args, **options):
         load(self.CLS, self.FILE_NAME)
-        for user in self.CLS.objects.all():
-            user.set_password(os.getenv('TEST_USERS_PASSWORD'))
-            user.save()
+        admin_password = os.getenv('ADMIN_PASSWORD')
+        if admin_password is not None:
+            User.objects.create_superuser(
+                os.getenv('ADMIN_USERNAME'),
+                os.getenv('ADMIN_EMAIL'),
+                admin_password,
+            )
