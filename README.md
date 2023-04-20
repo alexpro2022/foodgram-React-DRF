@@ -143,28 +143,33 @@ TELEGRAM_BOT_TOKEN=
 </details>
 <hr>
 
+При первом запуске будут автоматически произведены следующие действия:    
+  * выполнены миграции БД
+  * БД заполнена начальными данными
+  * создан суперюзер (пользователь с правами админа) с учетными данными из переменных окружения ADMIN_USERNAME, ADMIN_EMAIL, ADMIN_PASSWORD
+  * собрана статика 
+
+Учетные данные тестовых аккаунтов для входа в приложение:
+  * пароль - 111 (можно поменять для каждого пользователя, включая тестовых)
+  * поле email:
+      ```
+      -bingobongo@yamdb.fake
+      -capt_obvious@yamdb.fake
+      -faust@yamdb.fake
+      -reviewer@yamdb.fake
+      -angry@yamdb.fake
+      ```
+
+Вход в админ-зону осуществляется по адресу: http://hostname/admin/, где hostname: 
+  * localhost
+  * IP-адрес удаленного сервера
+
 [⬆️Оглавление](#оглавление)
 
 
-3. Если переменная окружения DEBUG=True ???, то в контейнере web будут автоматически произведены следующие действия:    
-  * выполнены миграции
-  * БД заполнена начальными данными 
-  * собрана статика 
-  * создать суперпользователя admin с учетными данными из переменных окружения ADMIN_USERNAME, ADMIN_EMAIL, ADMIN_PASSWORD
-
-## Проект развернут на сервере: 
-### IP 84.252.138.7
-### Доступные ресурсы:
-admin/ login:adm@adm.ru, password: 111
 
 Logins of installed test users with common password 111:
-```
--bingobongo@yamdb.fake
--capt_obvious@yamdb.fake
--faust@yamdb.fake
--reviewer@yamdb.fake
--angry@yamdb.fake
-```
+
 
 
 ## Автор
