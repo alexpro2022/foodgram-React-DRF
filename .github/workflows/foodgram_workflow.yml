@@ -77,13 +77,13 @@ jobs:
         with:
           context: backend
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.PROJECT_NAME_backend }}:latest           
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.PROJECT_NAME }}_backend:latest           
       - name: Push frontend to Docker Hub 
         uses: docker/build-push-action@v4
         with:
           context: frontend
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.PROJECT_NAME_frontend }}:latest           
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.PROJECT_NAME }}_frontend:latest           
 
   server_environment:
     name: Set up .env and copy infra files to server
