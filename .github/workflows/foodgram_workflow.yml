@@ -142,13 +142,13 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
           script: |
-            sudo systemctl stop nginx
-            sudo docker rmi \
-              ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.PROJECT_NAME }}_frontend \
-              ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.PROJECT_NAME }}_backend            
             cd ${{ secrets.PROJECT_NAME }}
             sudo docker compose down
-            sudo docker compose up -d --quiet-pull        
+            sudo docker rmi \
+              ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.PROJECT_NAME }}_frontend \
+              ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.PROJECT_NAME }}_backend
+            sudo systemctl stop nginx
+            sudo docker compose up -d --quiet-pull       
 
   send_message:
     runs-on: ubuntu-latest
