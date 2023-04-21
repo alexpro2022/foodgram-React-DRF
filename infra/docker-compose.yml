@@ -11,7 +11,7 @@ services:
     depends_on:
       - frontend    
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - ${PROJECT_NAME}_postgres_data:/var/lib/postgresql/data/
     env_file:
       - ./.env
   
@@ -21,8 +21,8 @@ services:
     depends_on:
       - db    
     volumes:
-      - static_value:/app/static/
-      - media_value:/app/media/
+      - ${PROJECT_NAME}_static_value:/app/static/
+      - ${PROJECT_NAME}_media_value:/app/media/
     env_file:
       - ./.env
 
@@ -37,10 +37,10 @@ services:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
       - ../frontend/build:/usr/share/nginx/html/
       - ../docs/:/usr/share/nginx/html/api/docs/
-      - static_value:/var/html/static/
-      - media_value:/var/html/media/
+      - ${PROJECT_NAME}_static_value:/var/html/static/
+      - ${PROJECT_NAME}_media_value:/var/html/media/
 
 volumes:
-  postgres_data:   
-  static_value:
-  media_value:
+  ${PROJECT_NAME}_postgres_data:   
+  ${PROJECT_NAME}_static_value:
+  ${PROJECT_NAME}_media_value:
