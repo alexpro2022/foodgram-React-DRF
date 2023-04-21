@@ -15,10 +15,10 @@ class Command(BaseCommand):
     @info
     def handle(self, *args, **options):
         load(self.CLS, self.FILE_NAME)
-        admin_password = os.getenv('ADMIN_PASSWORD', 'a')
+        admin_password = os.getenv('ADMIN_PASSWORD')
         if admin_password is not None:
             User.objects.create_superuser(
-                os.getenv('ADMIN_USERNAME', 'a'),
-                os.getenv('ADMIN_EMAIL', 'a@a.a'),
+                os.getenv('ADMIN_USERNAME'),
+                os.getenv('ADMIN_EMAIL'),
                 admin_password,
             )
