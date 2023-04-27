@@ -83,12 +83,12 @@
 
 1. Клонируйте репозиторий с GitHub:
 ```
-git clone git@github.com:alexpro2022/foodgram-project-react.git
+git@github.com:alexpro2022/foodgram-React-DRF.git
 ```
 
 2. Перейдите в созданную директорию проекта:
 ```
-cd foodgram-project-react
+cd foodgram-React-DRF
 ```
 
 3. Скопируйте содержимое файла **env_example** (при этом будет создан файл *.env*):
