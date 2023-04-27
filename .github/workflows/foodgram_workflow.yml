@@ -114,6 +114,7 @@ jobs:
               ADMIN_EMAIL=${{ secrets.ADMIN_EMAIL }}
               ADMIN_PASSWORD=${{ secrets.ADMIN_PASSWORD }}
               SECRET_KEY=${{ secrets.SECRET_KEY }}
+              DEBUG=${{ secrets.DEBUG }}
               # === two vars below are needed for docker-compose.yml
               PROJECT_NAME=${{ secrets.PROJECT_NAME }}
               DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}

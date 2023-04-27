@@ -74,10 +74,7 @@
 Предполагается, что пользователь:
  - установил [Docker](https://docs.docker.com/engine/install/) и [Docker Compose](https://docs.docker.com/compose/install/) на локальной машине или на удаленном сервере, где проект будет запускаться в контейнерах. Проверить наличие можно выполнив команды:
     ```
-    docker --version
-    ```
-    ```
-    docker-compose --version
+    docker --version && docker-compose --version
     ```
  - создал аккаунт [DockerHub](https://hub.docker.com/), если запуск будет производится на удаленном сервере.
 <hr>
@@ -99,7 +96,7 @@ cd foodgram-project-react
 cp env_example .env
 ```
 
-4. Откройте новый **.env**-файл и введите значения для переменных окружения.
+4. Откройте новый **.env**-файл и введите данные для переменных окружения (значения даны для примера, но их можно оставить).
 
 5. Из корневой директории проекта выполните команду:
 ```
@@ -122,21 +119,23 @@ docker compose -f infra/local/docker-compose.yml down -v
 
 1. Сделайте [форк](https://docs.github.com/en/get-started/quickstart/fork-a-repo) в свой репозиторий.
 
-2. Создайте Actions.Secrets согласно списку ниже (значения указаны для примера) + переменные окружения из .env-файла:
+2. Создайте Actions.Secrets согласно списку ниже (значения указаны для примера) + переменные окружения из env_example файла:
 ```
-PROJECT_NAME= 
+PROJECT_NAME 
+SECRET_KEY
 
-CODECOV_TOKEN= 
+CODECOV_TOKEN
 
-DOCKERHUB_USERNAME= 
-DOCKERHUB_PASSWORD= 
+DOCKERHUB_USERNAME
+DOCKERHUB_PASSWORD
 
 # Данные удаленного сервера и ssh-подключения:
-HOST= 
-USERNAME= 
-SSH_KEY=     
-PASSPHRASE= 
+HOST
+USERNAME 
+SSH_KEY 
+PASSPHRASE
 
+# Учетные данные Телеграм-бота для получения сообщения о успешном завершении workflow
 TELEGRAM_USER_ID= 
 TELEGRAM_BOT_TOKEN= 
 ```
