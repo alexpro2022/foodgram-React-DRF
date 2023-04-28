@@ -81,9 +81,14 @@
 <details>
 <summary>Локальный запуск: Docker Compose</summary> 
 
+**!!! Для пользователей Windows обязательно выполнить команду:**
+```
+git config --global core.autocrlf false
+```
+
 1. Клонируйте репозиторий с GitHub:
 ```
-git@github.com:alexpro2022/foodgram-React-DRF.git
+git clone git@github.com:alexpro2022/foodgram-React-DRF.git
 ```
 
 2. Перейдите в созданную директорию проекта:
