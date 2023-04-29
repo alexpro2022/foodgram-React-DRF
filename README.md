@@ -70,6 +70,7 @@
 
 
 ## Установка и запуск:
+Удобно использовать copy-paste - команды копировать из GitHub Readme и вставить в командную строку Git Bash или IDE (например VSCode).
 ### Предварительные условия:
 Предполагается, что пользователь:
  - установил [Docker](https://docs.docker.com/engine/install/) и [Docker Compose](https://docs.docker.com/compose/install/) на локальной машине или на удаленном сервере, где проект будет запускаться в контейнерах. Проверить наличие можно выполнив команды:
@@ -81,35 +82,26 @@
 <details>
 <summary>Локальный запуск: Docker Compose</summary> 
 
-**!!! Для пользователей Windows обязательно выполнить команду:**
+**!!! Для пользователей Windows обязательно выполнить команду:** иначе файл start.sh будет бракован:
 ```
 git config --global core.autocrlf false
 ```
 
-1. Клонируйте репозиторий с GitHub:
+1. Клонируйте репозиторий с GitHub и введите данные для переменных окружения (значения даны для примера, но их можно оставить):
 ```
-git clone git@github.com:alexpro2022/foodgram-React-DRF.git
-```
-
-2. Перейдите в созданную директорию проекта:
-```
-cd foodgram-React-DRF
+git clone git@github.com:alexpro2022/foodgram-React-DRF.git && \
+cd foodgram-React-DRF && \
+cp env_example .env && \
+nano .env
 ```
 
-3. Скопируйте содержимое файла **env_example** (при этом будет создан файл *.env*):
-```
-cp env_example .env
-```
-
-4. Откройте новый **.env**-файл и введите данные для переменных окружения (значения даны для примера, но их можно оставить).
-
-5. Из корневой директории проекта выполните команду:
+2. Из корневой директории проекта выполните команду:
 ```
 docker compose -f infra/local/docker-compose.yml up -d --build
 ```
 Проект будет развернут в трех docker-контейнерах (db, web, nginx) по адресу http://localhost.
 
-6. Остановить docker и удалить контейнеры можно командой из корневой директории проекта:
+3. Остановить docker и удалить контейнеры можно командой из корневой директории проекта:
 ```
 docker compose -f infra/local/docker-compose.yml down
 ```
