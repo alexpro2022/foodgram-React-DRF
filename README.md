@@ -73,15 +73,18 @@
 ## Установка и запуск:
 Удобно использовать принцип copy-paste - копировать команды из GitHub Readme и вставлять в командную строку Git Bash или IDE (например VSCode).
 ### Предварительные условия:
+<details><summary>Развернуть</summary>
+
 Предполагается, что пользователь:
  - создал аккаунт [DockerHub](https://hub.docker.com/), если запуск будет производиться на удаленном сервере.
  - установил [Docker](https://docs.docker.com/engine/install/) и [Docker Compose](https://docs.docker.com/compose/install/) на локальной машине или на удаленном сервере, где проект будет запускаться в контейнерах. Проверить наличие можно выполнив команды:
     ```
     docker --version && docker-compose --version
     ```
+</details>
 <hr>
 <details>
-<summary>Локальный запуск: Docker Compose</summary> 
+<summary>Локальный запуск</summary> 
 
 **!!! Для пользователей Windows обязательно выполнить команду:** иначе файл start.sh при клонировании будет бракован:
 ```
@@ -110,10 +113,10 @@ docker compose -f infra/local/docker-compose.yml down
 ```
 docker compose -f infra/local/docker-compose.yml down -v
 ```
-</details>
-<hr>
+<hr></details>
+
 <details>
-<summary>Запуск на удаленном сервере: Docker Compose</summary>
+<summary>Запуск на удаленном сервере</summary>
 
 1. Сделайте [форк](https://docs.github.com/en/get-started/quickstart/fork-a-repo) в свой репозиторий.
 
