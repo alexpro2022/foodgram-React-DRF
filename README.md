@@ -83,7 +83,7 @@
 <details>
 <summary>Локальный запуск: Docker Compose</summary> 
 
-**!!! Для пользователей Windows обязательно выполнить команду:** иначе файл start.sh будет бракован:
+**!!! Для пользователей Windows обязательно выполнить команду:** иначе файл start.sh при клонировании будет бракован:
 ```
 git config --global core.autocrlf false
 ```
