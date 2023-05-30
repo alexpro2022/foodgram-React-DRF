@@ -1,4 +1,4 @@
-# Приложение «Продуктовый помощник»
+# Приложение Продуктовый помощник
 [![status](https://github.com/alexpro2022/foodgram-project-react/actions/workflows/foodgram_workflow.yml/badge.svg)](https://github.com/alexpro2022/foodgram-project-react/actions)
 [![codecov](https://codecov.io/gh/alexpro2022/foodgram-project-react/branch/master/graph/badge.svg?token=4HIR16U0RJ)](https://codecov.io/gh/alexpro2022/foodgram-project-react)
 
@@ -183,4 +183,4 @@ cd .. && rm -fr foodgram-React-DRF && deactivate
 ## Автор
 [Проскуряков Алексей](https://github.com/alexpro2022)
 
-[⬆️В начало](#Приложение-«Продуктовый-помощник»)
+[⬆️В начало](#Приложение-Продуктовый-помощник)
