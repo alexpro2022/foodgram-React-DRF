@@ -79,7 +79,7 @@
 Предполагается, что пользователь:
  - создал аккаунт [DockerHub](https://hub.docker.com/), если запуск будет производиться на удаленном сервере.
  - установил [Docker](https://docs.docker.com/engine/install/) и [Docker Compose](https://docs.docker.com/compose/install/) на локальной машине или на удаленном сервере, где проект будет запускаться в контейнерах. Проверить наличие можно выполнив команды:
-    ```
+    ```bash
     docker --version && docker-compose --version
     ```
 </details>
@@ -88,12 +88,12 @@
 <summary>Локальный запуск</summary> 
 
 **!!! Для пользователей Windows обязательно выполнить команду:** иначе файл start.sh при клонировании будет бракован:
-```
+```bash
 git config --global core.autocrlf false
 ```
 
 1. Клонируйте репозиторий с GitHub и введите данные для переменных окружения (значения даны для примера, но их можно оставить):
-```
+```bash
 git clone https://github.com/alexpro2022/foodgram-React-DRF.git && \
 cd foodgram-React-DRF && \
 cp env_example .env && \
@@ -101,17 +101,17 @@ nano .env
 ```
 
 2. Из корневой директории проекта выполните команду:
-```
+```bash
 docker compose -f infra/local/docker-compose.yml up -d --build
 ```
 Проект будет развернут в трех docker-контейнерах (db, web, nginx) по адресу http://localhost.
 
 3. Остановить docker и удалить контейнеры можно командой из корневой директории проекта:
-```
+```bash
 docker compose -f infra/local/docker-compose.yml down
 ```
 Если также необходимо удалить тома базы данных, статики и медиа:
-```
+```bash
 docker compose -f infra/local/docker-compose.yml down -v
 ```
 <hr></details>
@@ -122,7 +122,7 @@ docker compose -f infra/local/docker-compose.yml down -v
 1. Сделайте [форк](https://docs.github.com/en/get-started/quickstart/fork-a-repo) в свой репозиторий.
 
 2. Создайте Actions.Secrets согласно списку ниже (значения указаны для примера) + переменные окружения из env_example файла:
-```
+```py
 PROJECT_NAME 
 SECRET_KEY
 
@@ -149,18 +149,18 @@ TELEGRAM_BOT_TOKEN=
 При первом запуске будут автоматически произведены следующие действия:    
   * выполнены миграции БД
   * БД заполнена начальными данными
-  * создан суперюзер (пользователь с правами админа) с учетными данными из переменных окружения ADMIN_USERNAME, ADMIN_EMAIL, ADMIN_PASSWORD
+  * создан суперюзер (пользователь с правами админа) с учетными данными из переменных окружения `ADMIN_USERNAME`, `ADMIN_EMAIL`, `ADMIN_PASSWORD`
   * собрана статика 
 
-Вход в админ-зону осуществляется по адресу: http://hostname/admin/ .
-Увидеть спецификацию API можно по адресу http://hostname/api/docs/ , где hostname: 
-  * localhost
+Вход в админ-зону осуществляется по адресу: `http://hostname/admin/` .
+Увидеть спецификацию API можно по адресу `http://hostname/api/docs/` , где `hostname`: 
+  * `localhost`
   * IP-адрес удаленного сервера  
 
 Учетные данные тестовых аккаунтов для входа в приложение:
   * пароль - 111 (можно поменять для каждого пользователя, включая тестовых)
   * поле email:
-      ```
+      ```py
       bingobongo@yamdb.fake
       capt_obvious@yamdb.fake
       faust@yamdb.fake
@@ -173,8 +173,8 @@ TELEGRAM_BOT_TOKEN=
 
 ## Удаление:
 Для удаления проекта выполните команду:
-```
-cd .. && rm -fr foodgram-React-DRF && deactivate
+```bash
+cd .. && rm -fr foodgram-React-DRF
 ```
 
 [⬆️Оглавление](#оглавление)
